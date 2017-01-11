@@ -12,11 +12,10 @@
  */
 function articles_all($link){
     //запрос
-    $query = "SELECT * FROM articles
-    ORDER BY  id DESC";
+    $query = "SELECT * FROM articles ORDER BY  id DESC";
     $result = mysqli_query($link, $query);
 
-    if(! $result)
+    if(!$result)
         die(mysqli_error($link));
 
     //извлечение из базы
@@ -53,9 +52,34 @@ function articles_get($link, $id_article)
 
 }
 
-//создание статьи
-function articles_new($title, $date, $content){
+/**
+ * создание статьи
+ * @param $link
+ * @param $title
+ * @param $date
+ * @param $content
+ * @return bool
+ */
+function articles_new($link, $title, $date, $content){
+    //подготовка
+    $title = trim($title);
+    $content = trim($content);
 
+    //проверка
+    if($title == "") return false;
+
+    //query
+    $template_add = "INSERT INTO articles (title, date, content) VALUES ('%s', '%s', '%s')";
+
+    $query = sprintf($template_add, mysqli_real_escape_string($link, $title),
+                     mysqli_real_escape_string($link, $date),
+                     mysqli_real_escape_string($link, $content));
+    echo $query;
+    $result = mysqli_query($link, $query);
+
+    if(!$result)
+        die(mysqli_error($link));
+    return true;
 }
 
 //редактирование статьи
