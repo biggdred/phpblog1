@@ -1,0 +1,69 @@
+create add.html
+
+create in css
+=>>
+label {
+	width: 100%;
+}
+
+.form-item {
+	width: 100%;
+}
+=<<
+
+modifay admin/index.php
+=>>
+<?php
+
+    require_once("../database.php");
+    require_once("../models/articles.php");
+
+    $link = db_connect();
+
+    if (isset($_GET['action']))
+    	$action = $_GET['action'];
+    else
+    	$action = "";
+
+    if ($action == "add") {
+        if(!empty($_POST)){
+            articles_new($link, $_POST['title'], $_POST['date'], $_POST['content']);
+            header("Location: index.php");
+        }
+    	include("../views/article_admin.php");
+    } else {
+	    $articles = articles_all($link);
+    	include("../views/articles_admin.php");
+    }
+
+?>
+=<<
+
+add in models/articles.php
+=>>function articles_new($link, $title, $date, $content) {
+           // Подготовка
+           $title = trim($title);
+           $content = trim($content);
+
+           // Проверка
+           if ($title == '')
+               return false;
+
+           // Запрос
+           $template_add = "INSERT INTO articles (title, date, content) VALUES ('%s', '%s', '%s')";
+
+           $query = sprintf($template_add,
+                            mysqli_real_escape_string($link, $title),
+                            mysqli_real_escape_string($link, $date),
+                            mysqli_real_escape_string($link, $content));
+
+           echo $query;
+           $result = mysqli_query($link, $query);
+
+           if (!$result)
+               die(mysqli_error($link));
+
+           return true;
+       }
+ =<<
+

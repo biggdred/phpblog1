@@ -1,0 +1,92 @@
+Создание .htpasswd для 401-авторизации
+Если Вы хотите сделать базовую авторизацию на уровне apach - серевера Вам необходимо сгенерировать .htpasswd файл. Действие файлов .htaccess распространяется на текущую директорию и на все поддиректрии, лежащие уровнем ниже.
+Укажите данные для создания .htpasswd и .htaccess файлов:
+Логин:  
+admin
+
+Пароль:  
+123456
+
+Полный путь к файлу .htpasswd
+
+e:\XAMPP\htdocs\blog\admin\
+
+Приветствие(заголовок):
+
+Thats protected Area!
+
+Формат ХЕШ-пароля: MD5 crypt SHA
+Сгенерировать .htpasswd и .htaccess
+
+Данный пароль сгенерирован при помощи htpasswd и подходит для Linux и Windows
+Скопируйте эту строку в ваш .htpasswd файл:
+admin:$apr1$y7PfOt3y$axfPQSLVc817Dop/jYY1S0
+Помните, только одна запись может быть в строке!
+
+Для ограничения доступа к выбранной директории скопируйте эти строчки в ваш .htaccess файл:
+AuthType Basic
+AuthName "Thats protected Area!"
+AuthUserFile e:\XAMPP\htdocs\blog\admin\.htpasswd
+Require valid-user
+<Files .htpasswd>
+   deny from all  #запрет доступа из браузера к .htpasswd
+</Files>
+
+Для запрета доступа только к файлу private.zip скопируйте эти строчки в ваш .htaccess файл:
+<Files private.zip>
+AuthType Basic
+AuthName "Thats protected Area!"
+AuthUserFile e:\XAMPP\htdocs\blog\admin\.htpasswd
+Require valid-user
+</Files>
+<Files .htpasswd>
+   deny from all  #запрет доступа из браузера к .htpasswd
+</Files>
+
+Обратите внимание что файлы .htaccess и .htpasswd должны быть сохранены в unix-формате. Например, в Far Manager этого можно достичь если в режиме редактирования файла нажать комбинацию Shift+F2 и в появившемся меню выбрать “в формате UNIX (LF)”.
+
+Директивы и описание файла .htaccess, используемые для ограничения доступа
+
+AuthType — Тип используемой аутентификации. Для базовой аутентификации эта директива должна иметь значение: Basic
+
+AuthName — Имя области действия аутентификации. Текст, помогающий посетителю понять, куда он пытается получить доступ. Например, может быть написано: "Private zone. Only for administrator!"
+
+AuthUserFile — полный путь к файлу с паролями (.htpasswd). Относительные пути работать не будут.
+
+AuthGroupFile — путь к файлу групп, если он существует.
+
+Require - Одно или несколько требований, которые должны быть выполнены для получения доступа к закрытой области.
+
+require valid-user — разрешен доступ всем прошедшим проверку
+
+require user admin alex mango — разрешен доступ только посетителям с именами admin, alex, mango. Естественно, они должны пройти аутентификацию.
+
+require group admins - разрешен доступ всем пользователям из группы admins
+
+Файлы групп
+Если к защищаемой области сайта должна иметь доступ группа людей, то удобно объединить людей в группы, и разрешать доступ, определяя принадлежность пользователей к группе.
+Формат файла групп - это текстовый файл, каждая строка, которого описывает отдельную группу. Первым в строке должно идти название группы с двоеточием. А затем через пробел перечисляются посетители, входящие в группу.
+Пример файла групп:
+Admins: admin alex mango
+Users: guest user max23
+В группу Admins входят посетители с именами admin, alex, mango. А группу Users входят посетители с именами guest, user, max23.
+Пример файла .htaccess для доступа всем пользователям, прошедшим авторизацию:
+AuthType Basic
+AuthName "Private zone. Only for administrator!"
+AuthUserFile  /usr/host/mysite/.htpasswd
+require valid-user
+Пример файла .htaccess для доступа только пользователям admin и root:
+AuthType Basic
+AuthName "Private zone. Only for administrator!"
+AuthUserFile  /usr/host/mysite/.htpasswd
+require user admin root
+Доступ только пользователей из группы admins:
+AuthType Basic
+AuthName "Private zone. Only for administrator!"
+AuthUserFile  /usr/host/mysite/.htpasswd
+AuthGroupFile /usr/host/mysite/group
+require group admins
+Система авторегистрации в каталогах
+Утилита htpasswd, с помощью которой Вы можете самостоятельно генерировать пароли описана в оригинальной документации (на английском). Здесь Вы можете скачать утилиту htpasswd.exe для Windows.
+
+C остальными директивами и возможностями файла .htaccess Вы можете ознакомиться в статье .htaccess

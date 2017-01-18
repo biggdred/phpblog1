@@ -4,35 +4,32 @@
  *
  */
 
-//вывод всех статей
-function articles_all(){
-    //статья 1
-    $art1 =  [  'id'      => 1 ,
-                'title'   => 'Title1',
-                'date'    => '2015-12-17',
-                'content' => 'Content1'  ];
-    //статья 2
-    $art2 =  [  'id'      => 2 ,
-                'title'   => 'Title2',
-                'date'    => '2015-12-17',
-                'content' => 'Content1'];
 
-    $arr[0] = $art1;
-    $arr[1] = $art2;
+/**
+ * вывод всех статей
+ * @param $link
+ * @return array
+ */
+function articles_all($link){
+    //запрос
+    $query = "SELECT * FROM articles ORDER BY  id DESC";
+    $result = mysqli_query($link, $query);
 
-    return $arr;//возвращаем 2 статьи
+    if(!$result)
+        die(mysqli_error($link));
+
+    //извлечение из базы
+    $n = mysqli_num_rows($result);
+    $articles = array();
+
+    for ($i=0;$i<$n;$i++){
+        $row = mysqli_fetch_assoc($result);
+        $articles[] = $row;
+    }
+    return $articles;
+
 }
 
-<<<<<<< Updated upstream
-//получение конкретной статьи по id
-function articles_get($id){
-
-}
-
-//создание статьи
-function articles_new($title, $date, $content){
-
-=======
 /**
  * получение конкретной статьи по id
  * @param $link
@@ -87,7 +84,6 @@ function articles_new($link, $title, $date, $content){
     if(!$result)
         die(mysqli_error($link));
     return true;
->>>>>>> Stashed changes
 }
 
 //редактирование статьи

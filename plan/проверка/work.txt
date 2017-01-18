@@ -1,0 +1,179 @@
+
+
+Создали папки admin,models,views
+
+
+admin
+в ней создал 
+index.php
+==>
+<?php
+
+echo 'Admin Panel';
+
+<==
+
+
+models
+в ней создал 
+articles.php
+==>
+<?php
+/**
+для работы со статьями
+*/
+//вывод всех статей
+function articles_all(){
+    // создаем заглушку базы данных 1 и 'Title1' и 2016-14-12' и 'Content1' и т.д.
+    //статья 1
+    $art1 = array(
+           'id'      => 1, 
+           'title'   => 'Title1',
+           'date'    => '2016-14-12',
+           'content' => 'Content1');
+    //статья 2
+    $art2 = array(
+           'id'      => 2, 
+           'title'   => 'Title2',
+           'date'    => '2016-14-12',
+           'content' => 'Content2');
+    
+    $arr[0] = $art1;
+    $arr[1] = $art2;
+    
+    return $arr;//возвращаем 2 статьи
+    
+}
+//получение конкретной статьи по id
+function articles_get($id){
+    
+}
+//создание статьи
+function articles_new($title,$date,$cotent){
+    
+}
+//редактирование статьи
+function articles_edit($id,$title,$date,$contant){
+    
+}
+  
+//удаление статьи ,@param $id статьи
+function articles_delete($id){
+    
+}    
+<==
+
+
+views
+в ней создал 
+articles.php
+==>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Мой первый блог</title>
+    <link rel="stylesheet" href="style.css" >
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+</head>    
+<body>
+    <div  class="container">
+        <h1>Мой первый блог</h1>
+        <div>
+            <?php foreach($articles as $a): ?>
+                <div class="article">
+                <h3>
+                    <a href="articles.php?id=<?=$a['id'];?>">
+                        <?=$a['title'];?></a>
+                </h3>
+                <em>Опубликовано: <?=$a['date'];?> </em>
+                <p><?=$a['content'];?></p>
+                </div>
+            <?php endforeach ;?>
+        </div>    
+        <footer>
+        <p>Мой первый блог<br>
+        Copyright &copy; 2016
+        </p>
+        
+        </footer>
+    </div>
+      
+</body>    
+</html>   
+<==
+
+
+create index.php
+==>
+<?php
+//подключаем базу
+require_once("database.php") ;
+
+require_once("models/articles.php");
+    
+$articles = articles_all();
+
+
+include("views/articles.php");
+
+<==
+
+
+зсшли по ссылке http://localhost/blog/
+ввывелась страничка
+с сылками Title1 
+http://localhost/blog/articles.php?id=1
+и 
+с сылками Title2 
+http://localhost/blog/articles.php?id=2
+
+
+создаем контроллер articles.php 
+==>
+<?php
+/*   
+выводим необходимую информацию по статье
+*/
+
+//подключаем базу
+require_once("database.php") ;
+
+require_once("models/articles.php");
+    
+$article = articles_get($_GET['id']);
+
+
+include("views/article.php");
+
+<==
+
+
+ссылка
+http://localhost/blog/article.php?id=1
+вывод
+Warning: include(views/article.php): failed to open stream: No such file or directory in E:\XAMPP\htdocs\blog\article.php on line 14
+
+Warning: include(): Failed opening 'views/article.php' for inclusion (include_path='E:\XAMPP\php\PEAR') in E:\XAMPP\htdocs\blog\article.php on line 14
+
+
+добавим в models/articles.php 
+==>
+function articles_get($id){
+    return  array(
+           'id'      => 1, 
+           'title'   => 'Это простой заголовок',
+           'date'    => '2016-14-12',
+           'content' => 'Здесь будет статья');
+    
+}
+<==
+
+по ссылке http://localhost/blog/article.php?id=1
+вывод 
+отредактированый
+        Мой первый блог
+    Это простой заголовок
+    Опубликовано: 2016-14-12
+    Здесь будет статья

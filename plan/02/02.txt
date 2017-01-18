@@ -1,0 +1,130 @@
+﻿PHP. Личный блог
+
+Урок 7. MySQL, создание базы данных
+
+CREATE TABLE `articles` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+    
+добавили 
+
+INSERT INTO `articles` (`id`, `title`, `content`, `date`) VALUES ('1', 'Загаловок', 'Текст', '2016-12-14');  
+
+
+Урок 8. Взаимодействие PHP и MySQL
+
+подключаемся к базе и извлекаем данные
+
+database.php
+==>
+
+      define('MYSQL_SERVER', 'localhost');
+      define('MYSQL_USER', 'root');
+      define('MYSQL_PASSWORD', '');
+      define('MYSQL_DB', 'blog');
+     
+//подключаемся к базе
+      function db_connect(){
+          $link = mysqli_connect(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB)
+              //соединение не установленно, выводится ошибка
+              or die("Error: " . mysqli_error($link));
+          //выставляем рабочую кодировку
+          if(! mysqli_set_charset($link, "utf8")){
+              //если что то не так выводим ошибку
+              printf("Error: " . mysqli_error($link));
+          }
+          //если все прошло успешно то возвращает созданный дескриптор ($link)
+          return $link;
+      }
+ 
+
+<==
+
+index.php 
+==>
+<?php
+//подключаем базу
+require_once("database.php") ;
+
+require_once("models/articles.php");
+    
+$link = db_connect(); // добавили  !!!
+
+$articles = articles_all($link);
+
+
+include("views/articles.php");
+<==
+
+
+в models/articles.php делаем изменения , так как 
+мы выводили статическую инфу меняем на вывод из базы
+удаляем:
+ //статья 1
+    $art1 = array(
+           'id'      => 1, 
+           'title'   => 'Title1',
+           'date'    => '2016-14-12',
+           'content' => 'Content1');
+    //статья 2
+    $art2 = array(
+           'id'      => 2, 
+           'title'   => 'Title2',
+           'date'    => '2016-14-12',
+           'content' => 'Content2');
+    
+    $arr[0] = $art1;
+    $arr[1] = $art2;
+    
+    return $arr;//возвращаем 2 статьи
+
+и вставляем:
+==>
+//вывод всех статей
+function articles_all(){
+    //запрос
+    $query = "SELECT * FROM articles ORDER BY id DESC";
+    //sql запрос
+    $result = mysqli_query($link, $query);
+    
+    //если произошла ошибка преостановить работу скрипта и вывести эту ошибку
+    if(!$result)
+        die(mysqli_error($link));
+        
+    //извлечение из базы
+    $n = mysqli_num_rows($result);//количество строк которіе нам вернула база
+    $articles = array();//создаем пустой массив
+    
+    //проходимся по каждой страке нашей таблиці
+    for($i=0;$i<$n;$i++){
+        //заводим в ассоциативній массив
+        $row = mysqli_fetch_assoc($result);
+        //добавляем ассоциативній массив в массив articles
+        $articles[] = $row;
+    }
+    //возвращаем результат
+    return $articles;
+    
+}
+//получение конкретной статьи по id
+function articles_get($link, $id_article){
+    return  array(
+        //запрос из таблицы где id = id_artcle
+        $query = sprintf("SELECT * FROM articles WHERE id=%d", (int)$id_article);
+    $result = mysqli_query($link, $query);
+
+    if(! $result)
+        die(mysqli_error($link));
+
+    $article = mysqli_fetch_assoc($result);
+}
+
+
+
+==>
+
+добавляем в article.php соединение сбазой

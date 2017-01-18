@@ -1,0 +1,108 @@
+
+создаем в views/table.html
+==>
+<table border="1">
+    <tr>
+        <th>Дата</th>
+        <th>Заголовок</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>2015-01-01</td>
+        <td>Заголовок 1</td>
+        <td>
+            <a href="#">Редактировать</a>
+        </td>
+        <td>
+            <a href="#">Удалить</a>
+        </td>
+    </tr>
+    <tr>
+        <td>2015-01-01</td>
+        <td>Заголовок 2</td>
+        <td>
+            <a href="#">Редактировать</a>
+        </td>
+        <td>
+            <a href="#">Удалить</a>
+        </td>
+    </tr>
+    <tr>
+        <td>2015-01-01</td>
+        <td>Заголовок 3</td>
+        <td>
+            <a href="#">Редактировать</a>
+        </td>
+        <td>
+            <a href="#">Удалить</a>
+        </td>
+    </tr>
+</table>
+<==
+
+редактируем в папке admin/index.php
+==>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Мой первый блог</title>
+    <link rel="stylesheet" href="../style.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+</head>
+<body>
+<div  class="container">
+    <h1>Мой первый блог</h1>
+    <h2>Панель администратора</h2>
+    <a href="index.php?action=add">Добавить статью</a>
+    <div>
+        <table class="admin-table">
+            <tr>
+                <th>Дата</th>
+                <th>Заголовок</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <?php foreach($articles as $a) :?>
+                <tr>
+                    <td><?=$a['date'] ;?></td>
+                    <td><?=$a['title'] ;?></td>
+                    <td>
+                         <a href="index.php?action=edit&id=<?=$a['data'] ;?>">Редактировать</a>
+                    </td>
+                    <td>
+                         <a href="index.php?action=delete&id=<?=$a['data'] ;?>">Удалить</a>
+                    </td>
+                </tr>
+            <?php endforeach;?>
+            <tr>
+        </table>
+
+    </div>
+    <footer>
+        <p>Мой первый блог<br>
+            Copyright &copy; 2016
+        </p>
+    </footer>
+</div>
+</body>
+</html>
+<==
+
+зпходим 
+http://localhost/blog/admin/
+выводится панель с таблицей
+
+
+
+в css 
+.admin-table{
+    width: 100%;
+}
+ 
+
+
+
+
+

@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-<?php
-=======
 ﻿<?php
 
 require_once("../database.php");
@@ -74,6 +71,4 @@ if ($action == "add") {
 
 
 
->>>>>>> Stashed changes
 
-echo "Admin panel";

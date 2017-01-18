@@ -1,0 +1,65 @@
+
+внешние стили если есть инет
+
+из http://getbootstrap.com/getting-started/ :
+<!-- Latest compiled and minified CSS -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+
+стили из bootstrapcdn
+    class="container" выравниваем содеожимое по центру
+
+
+на XAMPP запуск http://localhost/blog/ в Breckets
+для запуска GET запроса нало в строке запроса завести 
+?a=3&b=2
+http://localhost/blog/?a=3&b=2
+
+
+
+в денвере для запуска GET запроса нало в строке запроса 
+завести 
+?a=3&b=2
+ http://blog.ru/?a=3&b=2
+
+
++++++++++++++++++++++++++++++++++++
+…or create a new repository on the command line
+
+echo "# phpblog1" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/biggdred/phpblog1.git
+git push -u origin master
++++++++++++++++++++++++++++++++++++
+
+находим remote repository
+$ cat .git/config
+[core]
+        repositoryformatversion = 0
+        filemode = false
+        bare = false
+        logallrefupdates = true
+        symlinks = false
+        ignorecase = true
+[remote "origin"]
+        url = https://github.com/biggdred/phpblog1.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+        remote = origin
+        merge = refs/heads/master
+[branch "lesson03"]
+        remote = origin
+        merge = refs/heads/lesson03
+
+url for data in remote хранилище
+$ git remote -v
+origin  https://github.com/biggdred/phpblog1.git (fetch)
+origin  https://github.com/biggdred/phpblog1.git (push)
+
+1 delete remote repository
+$ git remote rm origin
+
+2 when addeded remote repository
+$ git remote add origin https://github.com/biggdred/phpblog1.git
+

@@ -1,0 +1,19 @@
+footer {
+    text-align: center;
+}
+
+article {
+    margin-top: 50px;
+}
+
+.admin-table {
+	width: 100%;
+} 
+
+label {
+	width: 100%;
+}
+
+.form-item {
+	width: 100%;
+}

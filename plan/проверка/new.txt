@@ -1,0 +1,23 @@
+
+внешние стили если есть инет
+
+из http://getbootstrap.com/getting-started/ :
+<!-- Latest compiled and minified CSS -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+
+стили из bootstrapcdn
+    class="container" выравниваем содеожимое по центру
+
+
+на XAMPP запуск http://localhost/blog/ в Breckets
+для запуска GET запроса нало в строке запроса завести 
+?a=3&b=2
+http://localhost/blog/?a=3&b=2
+
+
+
+в денвере для запуска GET запроса нало в строке запроса 
+завести 
+?a=3&b=2
+ http://blog.ru/?a=3&b=2
+

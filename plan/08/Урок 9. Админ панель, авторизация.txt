@@ -1,0 +1,71 @@
+
+создание авторизации
+
+по запросу
+http://localhost/blog/admin/
+заходим в админку
+
+
+на главной странице добавим ссылочку 
+на страницу авторизации (админ панель)
+в views.articles.php
+<a href="admin">Панель администратора</a>
+
+обновили страницу и при клике переходим
+http://localhost/blog/admin/
+
+в папке admin настроем :
+  
+
+
+
+обновили страницу и при клике переходим
+вызывается ввод авторизации
+
+===== не помогло ===
+cmd
+было
+c:\User\AK>
+переходим
+cd /d e:/
+cd e:/XAMPP/apache/bin
+и вызывае
+-c .htpasswd  - file
+admin - user
+ htpasswd.exe -c .htpasswd admin
+нажимаем enter 
+ выводится ввод пароля
+вводим  
+ admin 
+подтверждаем 
+ admin
+файл создан 
+и забираем его из e:/XAMPP/apache/bin 
+копируем его в админку
+=============================
+на https://htmlweb.ru/service/htpasswd.php
+сгенерировал htpasswd
+ 
+Логин:  
+ admin
+Пароль:  
+ 123456
+Полный путь к файлу .htpasswd
+ e:\XAMPP\htdocs\blog\admin\
+ 
+Данный пароль сгенерирован при помощи htpasswd и подходит для Linux и Windows
+Скопируйте эту строку в ваш .htpasswd файл:
+admin:$apr1$y7PfOt3y$axfPQSLVc817Dop/jYY1S0
+
+Помните, только одна запись может быть в строке!
+
+
+Для ограничения доступа к выбранной директории скопируйте эти строчки в ваш .htaccess файл надо создать без пробелов :
+AuthType Basic
+AuthName "Thats protected Area!"
+AuthUserFile e:\XAMPP\htdocs\blog\admin\.htpasswd
+Require valid-user
+<Files .htpasswd>
+   deny from all  #запрет доступа из браузера к .htpasswd
+</Files>
+ 
