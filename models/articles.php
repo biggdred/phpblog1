@@ -5,6 +5,7 @@
  */
 
 
+<<<<<<< HEAD
 /**
  * вывод всех статей
  * @param $link
@@ -14,6 +15,10 @@ function articles_all($link){
     //запрос
     $query = "SELECT * FROM articles ORDER BY  id DESC";
     $result = mysqli_query($link, $query);
+=======
+//получение конкретной статьи по id
+function articles_get($id){
+>>>>>>> parent of 996d599... lesson 12 add edit admin panel
 
     if(!$result)
         die(mysqli_error($link));
@@ -30,6 +35,7 @@ function articles_all($link){
 
 }
 
+<<<<<<< HEAD
 /**
  * получение конкретной статьи по id
  * @param $link
@@ -80,6 +86,8 @@ function articles_new($link, $title, $date, $content){
     if(!$result)
         die(mysqli_error($link));
     return true;
+=======
+>>>>>>> parent of 996d599... lesson 12 add edit admin panel
 }
 
 //редактирование статьи

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<?php
 
 require_once("../database.php");
@@ -51,4 +52,7 @@ if ($action == "add") {
  *     include("../views/articles_admin.php");
  * )
  */
+=======
+<?php
+>>>>>>> parent of 996d599... lesson 12 add edit admin panel
 
