@@ -24,7 +24,13 @@
                           <td><?=$a['date'];?></td>
                           <td><?=$a['title'];?></td>
                           <td>
+<<<<<<< HEAD
                               <a href="index.php?action=edit&id=<?=$a['id'];?>">Редактировать</a>
+=======
+                              <a href="index.php?action=edit&id=<?=$a['id']?>">Редактировать</a>
+
+
+>>>>>>> master
                           </td>
                           <td>
                               <a href="index.php?action=delete&id=<?=$a['id'];?>">Удалить</a>

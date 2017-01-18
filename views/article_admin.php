@@ -11,6 +11,7 @@
     <h1>Мой первый блог</h1>
 
     <div>
+<<<<<<< HEAD
         <form method="post" action="index.php?action=add">
             <label>
                 Название
@@ -23,12 +24,30 @@
             <label>
                 Содержание
                 <textarea class="form-item" name="content" required>
+=======
+          <!--====form===-->      
+        <form method="post" action="index.php?action=<?=$_GET['action']?>&id=<?=$_GET['id']?>">
+            <label>
+                Название
+                <input type="text" name="title" value="<?=$article['title'];?>" class="form-item" autofocus required>
+            </label>
+            <label>
+                Дата
+                <input type="date" name="date" value="<?=$article['date'];?>" class="form-item" required>
+            </label>
+            <label>
+                Содержание
+                <textarea class="form-item" name="content" required><?=$article['content'];?>
+>>>>>>> master
                 </textarea>
             </label>
             <input type="submit" value="Сохранить" class="bin">
         </form>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
     </div>
     <footer>
         <p>Мой первый блог<br>
